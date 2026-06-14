@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inka Suokallio | Narrative Designer & Game Designer</title>
+<meta name="description" content="Game design student specializing in narrative design, world-building, and Unity development. Based in Kristiinankaupunki, Finland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --ink:#0F0E22;
+  --ink-mid:#1C1A3A;
+  --ink-light:#252350;
+  --cream:#FAFAF7;
+  --surface:#F2EFF8;
+  --border:#E0DCF0;
+  --purple:#6248C8;
+  --purple-soft:#9B83F0;
+  --purple-glow:rgba(98,72,200,0.12);
+  --green:#2A7057;
+  --green-soft:#3FA882;
+  --gold:#BF8C33;
+  --gold-soft:#D9AD5A;
+  --gold-glow:rgba(191,140,51,0.15);
+  --text-dark:#0F0E22;
+  --text-mid:#4A4770;
+  --text-muted:#8A88B0;
+  --text-light:#F2F0FF;
+  --text-light-mid:#B0AED0;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--text-dark);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ─── NAV ─── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 3.5rem;
+  transition:background 0.35s,padding 0.3s,box-shadow 0.35s;
+}
+.nav.scrolled{
+  background:rgba(15,14,34,0.96);
+  backdrop-filter:blur(14px);
+  padding:0.9rem 3.5rem;
+  box-shadow:0 1px 0 rgba(255,255,255,0.04);
+}
+.nav-logo{
+  font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;
+  color:#fff;text-decoration:none;letter-spacing:0.12em;
+  opacity:0.9;transition:opacity 0.2s;
+}
+.nav-logo:hover{opacity:1;}
+.nav-links{display:flex;align-items:center;gap:2.25rem;list-style:none;}
+.nav-links a{
+  font-size:0.72rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;color:rgba(255,255,255,0.6);
+  text-decoration:none;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--gold-soft);}
+.nav-cv{
+  font-size:0.7rem !important;font-weight:600 !important;
+  letter-spacing:0.12em !important;color:var(--ink) !important;
+  background:var(--gold);border-radius:3px;padding:0.5rem 1.15rem;
+  text-decoration:none;transition:background 0.2s;
+}
+.nav-cv:hover{background:var(--gold-soft) !important;color:var(--ink) !important;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;background:var(--ink);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:8rem 2rem 6rem;
+  position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.045) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+.hero-glow{
+  position:absolute;pointer-events:none;border-radius:50%;filter:blur(80px);
+}
+.hero-glow-purple{
+  width:500px;height:500px;
+  background:rgba(98,72,200,0.12);
+  top:-80px;right:-100px;
+}
+.hero-glow-gold{
+  width:400px;height:400px;
+  background:rgba(191,140,51,0.08);
+  bottom:-60px;left:-80px;
+}
+.hero-eyebrow{
+  position:relative;z-index:1;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--gold-soft);
+  margin-bottom:1.75rem;
+  display:flex;align-items:center;gap:0.85rem;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';display:inline-block;width:2.25rem;height:1px;
+  background:var(--gold);opacity:0.4;
+}
+.hero-name{
+  position:relative;z-index:1;
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;color:var(--text-light);
+  letter-spacing:0.04em;line-height:1.05;
+  margin-bottom:1rem;
+}
+.hero-title{
+  position:relative;z-index:1;
+  font-family:'Cinzel',serif;
+  font-size:clamp(0.8rem,1.8vw,1.05rem);
+  font-weight:400;color:var(--purple-soft);
+  letter-spacing:0.22em;text-transform:uppercase;
+  margin-bottom:1.6rem;
+}
+.hero-sub{
+  position:relative;z-index:1;
+  font-size:1rem;font-weight:300;
+  color:var(--text-light-mid);
+  max-width:480px;line-height:1.75;margin-bottom:2.75rem;
+}
+.hero-btns{
+  position:relative;z-index:1;
+  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+}
+.btn-solid{
+  font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;
+  padding:0.85rem 2rem;background:var(--purple);color:#fff;
+  border-radius:3px;transition:background 0.2s,transform 0.15s;
+  display:inline-block;
+}
+.btn-solid:hover{background:var(--purple-soft);transform:translateY(-2px);}
+.btn-ghost{
+  font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;
+  padding:0.85rem 2rem;border:1px solid rgba(255,255,255,0.18);
+  color:rgba(255,255,255,0.65);border-radius:3px;
+  transition:border-color 0.2s,color 0.2s,transform 0.15s;
+  display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--gold-soft);color:var(--gold-soft);transform:translateY(-2px);}
+.scroll-down{
+  position:absolute;bottom:2.25rem;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.22em;color:rgba(255,255,255,0.22);text-transform:uppercase;
+}
+.scroll-line{
+  width:1px;height:2.75rem;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.2),transparent);
+  animation:scrollAnim 2.2s ease-in-out infinite;
+}
+@keyframes scrollAnim{0%,100%{transform:scaleY(1);opacity:0.35;}50%{opacity:1;}}
+
+/* ─── SECTIONS ─── */
+section{padding:6rem 2rem;}
+.container{max-width:1080px;margin:0 auto;}
+.eyebrow{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.7rem;
+}
+.sec-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.7rem,3.5vw,2.6rem);
+  font-weight:600;color:var(--text-dark);line-height:1.15;
+}
+.sec-title.light{color:var(--text-light);}
+
+/* ─── ABOUT ─── */
+.about{background:var(--cream);}
+.about-grid{
+  display:grid;grid-template-columns:1.1fr 0.9fr;
+  gap:5rem;align-items:start;margin-top:3.25rem;
+}
+.about-text p{
+  font-size:0.97rem;line-height:1.85;
+  color:var(--text-mid);margin-bottom:1.2rem;
+}
+.about-text p:last-of-type{margin-bottom:0;}
+.about-text strong{color:var(--text-dark);font-weight:600;}
+.avail-pill{
+  display:inline-flex;align-items:center;gap:0.55rem;
+  margin-top:1.5rem;padding:0.5rem 1.1rem;
+  background:rgba(42,112,87,0.09);
+  border:1px solid rgba(42,112,87,0.28);
+  border-radius:100px;
+  font-size:0.78rem;font-weight:500;color:var(--green);
+}
+.avail-dot{
+  width:6px;height:6px;background:var(--green);border-radius:50%;
+  animation:blink 2.2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.info-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:1.75rem;
+  display:flex;flex-direction:column;gap:0;
+}
+.info-row{padding:1rem 0;}
+.info-row + .info-row{border-top:1px solid var(--border);}
+.info-label{
+  font-family:'Space Mono',monospace;font-size:0.57rem;
+  letter-spacing:0.25em;text-transform:uppercase;color:var(--text-muted);
+  margin-bottom:0.3rem;
+}
+.info-value{font-size:0.88rem;font-weight:600;color:var(--text-dark);}
+.info-sub{font-size:0.78rem;color:var(--text-mid);margin-top:0.1rem;}
+
+/* ─── CHARACTER SHEET ─── */
+.char-sheet{background:var(--ink);position:relative;overflow:hidden;}
+.char-sheet .grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.035) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.sheet-wrap{
+  position:relative;
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:6px;padding:2.5rem 3rem;margin-top:3rem;
+}
+.sheet-top{
+  text-align:center;padding-bottom:2rem;margin-bottom:2.5rem;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  position:relative;
+}
+.sheet-tag{
+  font-family:'Space Mono',monospace;font-size:0.57rem;
+  letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.7rem;
+}
+.sheet-name{
+  font-family:'Cinzel',serif;font-size:1.9rem;font-weight:700;
+  color:var(--text-light);margin-bottom:0.25rem;
+}
+.sheet-class{font-size:0.82rem;color:var(--text-light-mid);font-style:italic;}
+.sheet-class em{color:var(--purple-soft);font-style:normal;font-weight:500;}
+.deco{
+  position:absolute;bottom:-0.55rem;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:2.5rem;
+}
+.deco span{
+  font-size:0.6rem;color:var(--gold);opacity:0.55;
+}
+.sheet-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2.25rem 4rem;
+}
+.skill-group-label{
+  font-family:'Space Mono',monospace;font-size:0.57rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:1rem;padding-bottom:0.5rem;
+  border-bottom:1px solid rgba(191,140,51,0.2);
+}
+.skill-rows{display:flex;flex-direction:column;gap:0.55rem;}
+.skill-row{
+  display:flex;align-items:center;
+  justify-content:space-between;
+}
+.skill-name{font-size:0.82rem;color:rgba(242,240,255,0.82);}
+.dots{display:flex;gap:4px;}
+.d{
+  width:7px;height:7px;border-radius:50%;
+  transition:background 0.2s;
+}
+.d.on{background:var(--purple-soft);}
+.d.half{background:rgba(155,131,240,0.32);border:1px solid rgba(155,131,240,0.45);}
+.d.off{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);}
+.sheet-footer{
+  margin-top:2rem;padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;gap:3.5rem;
+}
+.lang-block{}
+.lang-nm{font-size:0.85rem;color:rgba(242,240,255,0.85);}
+.lang-lv{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--green-soft);
+  margin-top:0.15rem;
+}
+
+/* ─── PROJECTS ─── */
+.projects{background:var(--cream);}
+
+/* Featured cards */
+.feat-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1.35rem;margin-top:1.75rem;
+}
+.feat-card{
+  background:#fff;border:1px solid var(--border);border-radius:6px;
+  overflow:hidden;display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;
+}
+.feat-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(98,72,200,0.11);
+  border-color:rgba(98,72,200,0.28);
+}
+.feat-band{
+  padding:2rem 2rem 1.75rem;
+  position:relative;overflow:hidden;
+  min-height:160px;display:flex;
+  flex-direction:column;justify-content:flex-end;
+}
+.feat-band-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.band-ink{background:var(--ink);}
+.band-green{background:#163D2E;}
+.feat-cat{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--gold-soft);margin-bottom:0.6rem;
+  position:relative;z-index:1;
+}
+.feat-title{
+  font-family:'Cinzel',serif;font-size:1.55rem;font-weight:700;
+  color:var(--text-light);line-height:1.15;
+  position:relative;z-index:1;
+}
+.feat-body{
+  padding:1.65rem 2rem;flex:1;
+  display:flex;flex-direction:column;gap:0.85rem;
+}
+.feat-desc{font-size:0.87rem;line-height:1.78;color:var(--text-mid);flex:1;}
+.feat-roles{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.role-chip{
+  font-family:'Space Mono',monospace;font-size:0.56rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.22rem 0.6rem;border-radius:3px;
+  background:var(--surface);color:var(--text-mid);
+  border:1px solid var(--border);
+}
+.feat-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:0.85rem;border-top:1px solid var(--border);
+}
+.feat-yr{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.1em;color:var(--text-muted);
+}
+.feat-link{
+  font-size:0.75rem;font-weight:600;color:var(--purple);
+  text-decoration:none;display:flex;align-items:center;gap:0.3rem;
+  transition:gap 0.18s;
+}
+.feat-card:hover .feat-link{gap:0.5rem;}
+
+/* Section divider */
+.work-divider{
+  display:flex;align-items:center;gap:1.25rem;
+  margin:3.75rem 0 2rem;
+}
+.work-divider-line{flex:1;height:1px;background:var(--border);}
+.work-divider-label{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--text-muted);white-space:nowrap;
+}
+
+/* Small cards */
+.small-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1rem;
+}
+.proj-card{
+  background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:1.5rem;display:flex;flex-direction:column;gap:0.65rem;
+  transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;
+  text-decoration:none;color:inherit;position:relative;overflow:hidden;
+}
+.proj-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  opacity:0;transition:opacity 0.2s;
+}
+.proj-card:hover{
+  border-color:rgba(98,72,200,0.22);
+  box-shadow:0 8px 24px rgba(98,72,200,0.07);
+  transform:translateY(-3px);
+}
+.proj-card:hover::after{opacity:1;}
+.accent-purple::after{background:var(--purple);}
+.accent-green::after{background:var(--green);}
+.accent-gold::after{background:var(--gold);}
+.accent-teal::after{background:#2A8090;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.tag{
+  font-family:'Space Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.22rem 0.55rem;border-radius:3px;
+}
+.tp{background:rgba(98,72,200,0.1);color:#4D3CAA;}
+.tg{background:rgba(42,112,87,0.1);color:#1E5E3E;}
+.ty{background:rgba(191,140,51,0.1);color:#8A5E10;}
+.tt{background:rgba(42,130,160,0.1);color:#1A6A80;}
+.proj-title{
+  font-family:'Cinzel',serif;font-size:0.98rem;font-weight:600;
+  color:var(--text-dark);line-height:1.3;
+}
+.proj-desc{font-size:0.81rem;line-height:1.72;color:var(--text-mid);flex:1;}
+.proj-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:0.3rem;padding-top:0.65rem;border-top:1px solid var(--border);
+}
+.proj-yr{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.1em;color:var(--text-muted);
+}
+.proj-link{
+  font-size:0.72rem;font-weight:600;color:var(--purple);
+  text-decoration:none;display:flex;align-items:center;gap:0.3rem;
+  transition:gap 0.18s;
+}
+.proj-card:hover .proj-link{gap:0.5rem;}
+
+/* ─── EXPERIENCE ─── */
+.xp{background:var(--ink-mid);position:relative;overflow:hidden;}
+.xp .grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.03) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.xp-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;margin-top:3.25rem;position:relative;z-index:1;
+}
+.xp-section-label{
+  font-family:'Space Mono',monospace;font-size:0.57rem;
+  letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:2rem;
+}
+.xp-item{
+  position:relative;padding-left:1.35rem;margin-bottom:2rem;
+  border-left:2px solid rgba(98,72,200,0.18);
+}
+.xp-item::before{
+  content:'';position:absolute;left:-5px;top:0.35rem;
+  width:8px;height:8px;background:var(--purple);border-radius:50%;
+}
+.xp-date{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.25rem;
+}
+.xp-title{font-size:0.92rem;font-weight:600;color:var(--text-light);margin-bottom:0.18rem;}
+.xp-org{font-size:0.8rem;color:var(--purple-soft);margin-bottom:0.35rem;}
+.xp-desc{font-size:0.8rem;line-height:1.7;color:var(--text-light-mid);}
+
+/* ─── CONTACT ─── */
+.contact{background:var(--cream);text-align:center;}
+.contact-inner{max-width:560px;margin:0 auto;}
+.contact-sub{
+  font-size:0.97rem;line-height:1.8;color:var(--text-mid);
+  margin:1.5rem auto 2.5rem;
+}
+.contact-rows{
+  display:flex;flex-direction:column;gap:0.7rem;
+  align-items:center;
+}
+.c-link{
+  display:flex;align-items:center;gap:0.85rem;
+  font-size:0.88rem;font-weight:500;color:var(--text-dark);
+  text-decoration:none;padding:0.8rem 1.5rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:4px;width:100%;max-width:380px;
+  transition:border-color 0.2s,background 0.2s;
+}
+.c-link:hover{border-color:var(--purple);background:var(--purple-glow);}
+.c-icon{width:1rem;height:1rem;color:var(--purple);flex-shrink:0;}
+
+/* ─── FOOTER ─── */
+footer{background:var(--ink);padding:2rem;text-align:center;}
+footer p{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.2em;color:rgba(255,255,255,0.18);
+  text-transform:uppercase;
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .about-grid,.xp-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .feat-grid,.small-grid{grid-template-columns:1fr;}
+  .sheet-grid{grid-template-columns:1fr;}
+  .nav{padding:1rem 1.75rem;}
+  .nav.scrolled{padding:0.8rem 1.75rem;}
+  .sheet-wrap{padding:2rem 1.75rem;}
+}
+@media(max-width:600px){
+  .feat-grid,.small-grid{grid-template-columns:1fr;}
+  section{padding:4rem 1.25rem;}
+  .nav-links .hide-sm{display:none;}
+  .hero-name{font-size:2.5rem;}
+  .hero-title{font-size:0.72rem;}
+  .feat-title{font-size:1.3rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo">I · S</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="#about">About</a></li>
+    <li class="hide-sm"><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="YOUR_CV_PDF_LINK_HERE" class="nav-cv" target="_blank">Download CV</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow hero-glow-purple"></div>
+  <div class="hero-glow hero-glow-gold"></div>
+  <div class="hero-eyebrow">Open to opportunities</div>
+  <h1 class="hero-name">Inka Suokallio</h1>
+  <p class="hero-title">Narrative Designer &nbsp;·&nbsp; Game Designer &nbsp;·&nbsp; Digital Artist</p>
+  <p class="hero-sub">Building immersive worlds and player-centered experiences: from living campaign settings to educational card games and Unity builds.</p>
+  <div class="hero-btns">
+    <a href="#work" class="btn-solid">View My Work</a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+  <div class="scroll-down">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <p class="eyebrow">Who I am</p>
+    <h2 class="sec-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a game design student at <strong>XAMK South-Eastern Finland University of Applied Sciences</strong>, specializing in narrative design, world-building, and Unity development. I also hold a <strong>Vocational Degree in Game Development</strong> (ICT, Gaming Industry), giving me a technical foundation and hands-on experience taking games from concept to playable build.</p>
+        <p>My focus is on <strong>story-driven design</strong>, creating worlds, systems, and player experiences where every choice carries weight. I've worked on projects spanning educational Unity games, card game systems, and full D&D campaign world-building, taking on roles from game designer and programmer to 2D artist and visual designer.</p>
+        <p>Alongside my studies, I freelance as a <strong>visual designer</strong> for a YouTube content creator, delivering thumbnails, banners, and branding assets for an ongoing real-world client relationship since 2023.</p>
+        <div class="avail-pill">
+          <span class="avail-dot"></span>
+          Available for internship &amp; entry-level opportunities
+        </div>
+      </div>
+      <div>
+        <div class="info-card">
+          <div class="info-row" style="padding-top:0;">
+            <div class="info-label">Currently Studying</div>
+            <div class="info-value">Bachelor of Culture &amp; Arts, Game Design</div>
+            <div class="info-sub">XAMK UAS &nbsp;·&nbsp; 2025 – Present &nbsp;·&nbsp; 240 ECTS</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Previous Qualification</div>
+            <div class="info-value">Vocational Degree in ICT, Gaming Industry</div>
+            <div class="info-sub">VUOKSI Suupohjan koulutuskuntayhtymä &nbsp;·&nbsp; 2023 &nbsp;·&nbsp; 180 ECTS</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Core Specialty</div>
+            <div class="info-value">Narrative Design &amp; World-Building</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Secondary Skills</div>
+            <div class="info-value">Unity Development &nbsp;·&nbsp; Visual Design</div>
+          </div>
+          <div class="info-row" style="padding-bottom:0;">
+            <div class="info-label">Location</div>
+            <div class="info-value">Kristiinankaupunki, Finland</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS / CHARACTER SHEET -->
+<section class="char-sheet" id="skills">
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <p class="eyebrow">What I bring</p>
+    <h2 class="sec-title light">Skills &amp; Tools</h2>
+    <div class="sheet-wrap">
+      <div class="sheet-top">
+        <div class="sheet-tag">◆ Character Sheet ◆</div>
+        <div class="sheet-name">Inka Suokallio</div>
+        <div class="sheet-class">Class: <em>Narrative Designer</em> &nbsp;·&nbsp; Subclass: <em>Game Designer &amp; Digital Artist</em></div>
+        <div class="deco"><span>◆</span><span>◆</span><span>◆</span></div>
+      </div>
+      <div class="sheet-grid">
+        <div>
+          <div class="skill-group-label">Game Development</div>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">Unity Engine (PC &amp; Mobile)</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Gameplay &amp; Level Design</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">UI &amp; Player Experience Design</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d half"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Game Implementation</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span><span class="d off"></span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Narrative &amp; World-Building</div>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">World-Building &amp; Lore Design</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Narrative Design</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d half"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Interactive Storytelling</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Systems &amp; Card Game Design</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d half"></span><span class="d off"></span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Technical</div>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">Blender (3D, Sculpt, Render)</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d half"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">C# (Fundamentals)</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d half"></span><span class="d off"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Version Control / Collaboration</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">HTML &amp; PHP Basics</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d off"></span><span class="d off"></span><span class="d off"></span></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Creative Tools</div>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">Adobe Creative Cloud</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Inkarnate (Map Design)</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Figma / Canva / Notion</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d half"></span><span class="d off"></span></span></div>
+            <div class="skill-row"><span class="skill-name">Aseprite / GIMP</span><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d off"></span><span class="d off"></span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-footer">
+        <div class="lang-block">
+          <div class="lang-nm">Finnish</div>
+          <div class="lang-lv">Native</div>
+        </div>
+        <div class="lang-block">
+          <div class="lang-nm">English</div>
+          <div class="lang-lv">Fluent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="work">
+  <div class="container">
+    <p class="eyebrow">Selected work</p>
+    <h2 class="sec-title">Projects</h2>
+
+    <!-- FEATURED -->
+    <div class="feat-grid">
+
+      <a class="feat-card" href="dracora.html">
+        <div class="feat-band band-ink">
+          <div class="feat-band-grid"></div>
+          <div class="feat-cat">Narrative Design &nbsp;·&nbsp; World-Building</div>
+          <div class="feat-title">Dra'Cora</div>
+        </div>
+        <div class="feat-body">
+          <p class="feat-desc">A fully realised D&amp;D campaign world where players are unknowingly tied to an ancient seal. Features a living world map, relic system, multi-faction network, and corruption mechanics, all built to support multiple independent narrative experiences.</p>
+          <div class="feat-roles">
+            <span class="role-chip">Narrative Designer</span>
+            <span class="role-chip">World Designer</span>
+            <span class="role-chip">Systems Designer</span>
+          </div>
+          <div class="feat-foot">
+            <span class="feat-yr">2026 &nbsp;·&nbsp; Solo Project</span>
+            <span class="feat-link">View Project →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="feat-card" href="critter-clash.html">
+        <div class="feat-band band-green">
+          <div class="feat-band-grid"></div>
+          <div class="feat-cat">Game Design &nbsp;·&nbsp; Systems Design</div>
+          <div class="feat-title">Critter Clash</div>
+        </div>
+        <div class="feat-body">
+          <p class="feat-desc">Educational card game designed to a real national client brief (the Priodiversity LIFE Project). Went through a full design cycle: client brief, research, ideation, prototyping, live playtesting, and multiple iterations based on player feedback.</p>
+          <div class="feat-roles">
+            <span class="role-chip">Game Designer</span>
+            <span class="role-chip">Systems Designer</span>
+            <span class="role-chip">Playtesting Lead</span>
+          </div>
+          <div class="feat-foot">
+            <span class="feat-yr">2026 &nbsp;·&nbsp; In Development</span>
+            <span class="feat-link">View Project →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="work-divider">
+      <div class="work-divider-line"></div>
+      <span class="work-divider-label">Other Work</span>
+      <div class="work-divider-line"></div>
+    </div>
+
+    <!-- SMALLER WORK -->
+    <div class="small-grid">
+
+      <a class="proj-card accent-gold" href="thumbnails.html">
+        <div class="proj-tags">
+          <span class="tag ty">Visual Design</span>
+          <span class="tag ty">Freelance</span>
+        </div>
+        <div class="proj-title">Alextreme, YouTube Visuals</div>
+        <p class="proj-desc">Ongoing freelance visual design for a Warframe-focused YouTube channel. Thumbnails, banners, and creator branding, a real client relationship since May 2023.</p>
+        <div class="proj-foot">
+          <span class="proj-yr">2023 – Present</span>
+          <span class="proj-link">View Work →</span>
+        </div>
+      </a>
+
+      <a class="proj-card accent-purple" href="mini-projects.html">
+        <div class="proj-tags">
+          <span class="tag tp">Game Design</span>
+          <span class="tag tp">2D Art</span>
+        </div>
+        <div class="proj-title">Mini Projects</div>
+        <p class="proj-desc">Short-form academic game projects: Dragonbrew (pair project) and a Little Mole pixel-art platformer (solo). Programming, design, and all 2D artwork made by me.</p>
+        <div class="proj-foot">
+          <span class="proj-yr">2024 – 2026</span>
+          <span class="proj-link">View Projects →</span>
+        </div>
+      </a>
+
+      <a class="proj-card accent-teal" href="3d-models.html">
+        <div class="proj-tags">
+          <span class="tag tt">3D Modelling</span>
+          <span class="tag tt">Blender</span>
+        </div>
+        <div class="proj-title">3D Models</div>
+        <p class="proj-desc">A collection of 3D modelling work in Blender, covering sculpting, texturing, and rendering across school assignments and personal exploration.</p>
+        <div class="proj-foot">
+          <span class="proj-yr">2024</span>
+          <span class="proj-link">View Models →</span>
+        </div>
+      </a>
+
+      <a class="proj-card accent-purple" href="concept-art.html">
+        <div class="proj-tags">
+          <span class="tag tp">Concept Art</span>
+          <span class="tag tp">Character Design</span>
+        </div>
+        <div class="proj-title">Concept Art &amp; Illustration</div>
+        <p class="proj-desc">A growing showcase of digital illustrations, character designs, and visual development, including creature concepts, environments, and character sheets across academic and personal work.</p>
+        <div class="proj-foot">
+          <span class="proj-yr">2024 – 2026</span>
+          <span class="proj-link">View Gallery →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE & EDUCATION -->
+<section class="xp" id="experience">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <p class="eyebrow">My background</p>
+    <h2 class="sec-title light">Experience &amp; Education</h2>
+    <div class="xp-grid">
+      <div>
+        <div class="xp-section-label">Work &amp; Client Experience</div>
+        <div class="xp-item">
+          <div class="xp-date">May 2023 – Present</div>
+          <div class="xp-title">Freelance Visual Designer</div>
+          <div class="xp-org">Alextreme YouTube Channel</div>
+          <div class="xp-desc">Designing thumbnails, banners, and creator branding assets. Supporting audience growth through consistent, engaging visual content.</div>
+        </div>
+        <div class="xp-item">
+          <div class="xp-date">2026 · Ongoing</div>
+          <div class="xp-title">Game Designer, Critter Clash</div>
+          <div class="xp-org">Priodiversity LIFE Project (National Client)</div>
+          <div class="xp-desc">Designing an educational card game system to a real client brief as part of XAMK university studies. Full design cycle from brief to playtesting.</div>
+        </div>
+        <div class="xp-item">
+          <div class="xp-date">2023</div>
+          <div class="xp-title">Game Designer &amp; Developer</div>
+          <div class="xp-org">Kurikan Virtuaalimuseo, Kurikka Museum</div>
+          <div class="xp-desc">11-week team project. Gameplay design, asset implementation, programming, and Android build delivery.</div>
+        </div>
+        <div class="xp-item">
+          <div class="xp-date">2022</div>
+          <div class="xp-title">Game Designer &amp; Developer</div>
+          <div class="xp-org">Piggyn Seikkailut, Kauhajoki Library</div>
+          <div class="xp-desc">6-week team project. Mechanics, 3D asset creation, animation, and PC build delivery.</div>
+        </div>
+      </div>
+      <div>
+        <div class="xp-section-label">Education</div>
+        <div class="xp-item">
+          <div class="xp-date">2025 – Present</div>
+          <div class="xp-title">Bachelor of Culture &amp; Arts, Game Design</div>
+          <div class="xp-org">XAMK South-Eastern Finland University of Applied Sciences</div>
+          <div class="xp-desc">240 ECTS. Specializing in narrative design, Unity development, and interactive experience design. Online studies.</div>
+        </div>
+        <div class="xp-item">
+          <div class="xp-date">2023</div>
+          <div class="xp-title">Vocational Degree in ICT, Software Developer (Gaming)</div>
+          <div class="xp-org">VUOKSI Suupohjan koulutuskuntayhtymä, Kauhajoki</div>
+          <div class="xp-desc">180 ECTS. Game development, programming fundamentals, 3D modelling, and game engine workflows.</div>
+        </div>
+        <div class="xp-item">
+          <div class="xp-date">2025</div>
+          <div class="xp-title">Introduction to Video Games (9 ECTS)</div>
+          <div class="xp-org">XAMK UAS &amp; Cambridge Academy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <p class="eyebrow" style="text-align:center;">Let's talk</p>
+      <h2 class="sec-title" style="text-align:center;">Get in Touch</h2>
+      <p class="contact-sub">I'm currently open to internship and entry-level opportunities in narrative design and game development. If you'd like to work together or just say hello, I'd love to hear from you.</p>
+      <div class="contact-rows">
+        <a href="mailto:inka.suokallio@gmail.com" class="c-link">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          inka.suokallio@gmail.com
+        </a>
+        <a href="https://suokallioinka.myportfolio.com" class="c-link" target="_blank">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+          Adobe Portfolio
+        </a>
+        <a href="YOUR_LINKEDIN_URL" class="c-link" target="_blank">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+          LinkedIn Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Inka Suokallio &nbsp;·&nbsp; Kristiinankaupunki, Finland &nbsp;·&nbsp; inka.suokallio@gmail.com</p>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Art | Inka Suokallio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.proj-hero{
+  min-height:55vh;background:var(--ink);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:10rem 2rem 4rem;position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.045) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hero-glow-p{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:rgba(98,72,200,0.1);filter:blur(90px);
+  top:-100px;left:-100px;pointer-events:none;
+}
+.hero-glow-g{
+  position:absolute;width:400px;height:400px;border-radius:50%;
+  background:rgba(191,140,51,0.07);filter:blur(70px);
+  bottom:-60px;right:-40px;pointer-events:none;
+}
+.hero-inner{max-width:1080px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
+.breadcrumb a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--gold-soft);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;}
+.proj-name{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,4rem);font-weight:700;color:var(--text-light);letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem;}
+.proj-tagline{font-size:1rem;font-weight:300;color:var(--text-light-mid);max-width:520px;line-height:1.75;margin-bottom:2rem;}
+.meta-strip{display:flex;flex-wrap:wrap;gap:2rem;}
+.meta-item{display:flex;flex-direction:column;gap:0.2rem;}
+.meta-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-muted);}
+.meta-value{font-size:0.88rem;font-weight:500;color:var(--text-light);}
+
+.light-section{background:var(--cream);padding:5rem 2rem;}
+.content-col p{font-size:0.97rem;line-height:1.85;color:var(--text-mid);margin-bottom:1.2rem;}
+.content-col p:last-child{margin-bottom:0;}
+.content-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--purple);margin-bottom:0.65rem;}
+.content-h{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;color:var(--text-dark);margin-bottom:1.25rem;line-height:1.2;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+
+/* Gallery layouts */
+.gallery-featured{
+  display:grid;grid-template-columns:2fr 1fr;
+  gap:1rem;margin-top:2rem;
+}
+.gallery-featured .img-ph.tall{min-height:360px;}
+
+.gallery-grid-3{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;margin-top:1rem;
+}
+.gallery-grid-4{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1rem;margin-top:1rem;
+}
+
+.section-label-inline{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--text-muted);
+  margin-bottom:0.65rem;margin-top:3.5rem;
+}
+
+@media(max-width:900px){
+  .two-col,.gallery-featured,.gallery-grid-4{grid-template-columns:1fr 1fr;}
+  .gallery-grid-3{grid-template-columns:1fr 1fr;}
+  .proj-hero{min-height:auto;padding:8rem 1.5rem 3rem;}
+}
+@media(max-width:500px){
+  .gallery-grid-3,.gallery-grid-4,.gallery-featured,.two-col{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">I · S</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="index.html#about">About</a></li>
+    <li class="hide-sm"><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#work" class="active">Work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="YOUR_CV_PDF_LINK_HERE" class="nav-cv" target="_blank">Download CV</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-p"></div>
+  <div class="hero-glow-g"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Portfolio</a> &nbsp;/&nbsp; Concept Art</div>
+    <div class="hero-tags">
+      <span class="tag tw">Concept Art</span>
+      <span class="tag tw">Character Design</span>
+      <span class="tag tw">Digital Illustration</span>
+    </div>
+    <h1 class="proj-name">Concept Art &amp; Illustration</h1>
+    <p class="proj-tagline">A growing collection of digital art work, character designs, and visual development across personal and academic projects.</p>
+    <div class="meta-strip">
+      <div class="meta-item"><span class="meta-label">Period</span><span class="meta-value">2024 to 2026</span></div>
+      <div class="meta-item"><span class="meta-label">Tools</span><span class="meta-value">Adobe Creative Cloud, Aseprite, GIMP</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="light-section">
+  <div class="container">
+    <div class="two-col" style="margin-bottom:4rem;">
+      <div>
+        <div class="content-label">About this gallery</div>
+        <div class="content-h">Art as part of the design process</div>
+        <div class="content-col">
+          <p>This collection brings together digital illustrations, character concepts, and visual development work from across my projects and personal practice. Some of it connects directly to other work on this site, like character designs developed for narrative projects. Some of it is purely personal exploration.</p>
+          <p>Drawing and visual design have been part of how I think through ideas since before I was formally studying game design. Sketching out a character or environment often reveals things about them that writing alone does not.</p>
+          <p>This gallery will keep growing as I continue developing my visual skills alongside my narrative and game design work.</p>
+        </div>
+      </div>
+      <div>
+        <div class="img-ph tall" style="min-height:320px;">
+          <div class="ph-icon">🎨</div>
+          <div class="ph-label">Featured Piece</div>
+          <div class="ph-sub">Add your strongest illustration here</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARACTER DESIGN -->
+    <div class="content-label">Character Design</div>
+    <div class="content-h">Characters and creatures</div>
+    <div class="gallery-featured">
+      <div class="img-ph tall" style="min-height:360px;">
+        <div class="ph-label">Character Sheet 01</div>
+        <div class="ph-sub">Full character sheet with poses or expressions</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="img-ph portrait" style="min-height:170px;">
+          <div class="ph-label">Character 02</div>
+        </div>
+        <div class="img-ph portrait" style="min-height:170px;">
+          <div class="ph-label">Character 03</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-grid-3" style="margin-top:1rem;">
+      <div class="img-ph square"><div class="ph-label">Creature 01</div></div>
+      <div class="img-ph square"><div class="ph-label">Creature 02</div></div>
+      <div class="img-ph square"><div class="ph-label">Creature 03</div></div>
+    </div>
+
+    <!-- ILLUSTRATIONS -->
+    <div class="section-label-inline">Illustrations and Environments</div>
+    <div class="gallery-grid-4">
+      <div class="img-ph wide"><div class="ph-label">Illustration 01</div></div>
+      <div class="img-ph wide"><div class="ph-label">Illustration 02</div></div>
+      <div class="img-ph wide"><div class="ph-label">Illustration 03</div></div>
+      <div class="img-ph wide"><div class="ph-label">Illustration 04</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="proj-nav">
+  <div class="proj-nav-inner">
+    <a href="index.html#work" class="proj-nav-back">← Back to all projects</a>
+    <div class="proj-nav-links">
+      <a href="3d-models.html" class="proj-nav-link">← 3D Models</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Inka Suokallio &nbsp;·&nbsp; Kristiinankaupunki, Finland &nbsp;·&nbsp; inka.suokallio@gmail.com</p>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+</script>
+</body>
+</html>

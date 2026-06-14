@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Projects | Inka Suokallio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.proj-hero{
+  min-height:55vh;background:var(--ink-mid);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:10rem 2rem 4rem;position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.04) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hero-glow{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  background:rgba(98,72,200,0.1);filter:blur(80px);
+  bottom:-100px;left:-60px;pointer-events:none;
+}
+.hero-inner{max-width:1080px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
+.breadcrumb a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--gold-soft);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;}
+.proj-name{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,4rem);font-weight:700;color:var(--text-light);letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem;}
+.proj-tagline{font-size:1rem;font-weight:300;color:var(--text-light-mid);max-width:520px;line-height:1.75;margin-bottom:2rem;}
+
+.light-section{background:var(--cream);padding:5rem 2rem;}
+.alt-section{background:var(--surface);padding:5rem 2rem;}
+.content-col p{font-size:0.97rem;line-height:1.85;color:var(--text-mid);margin-bottom:1.2rem;}
+.content-col p:last-child{margin-bottom:0;}
+.content-col p strong{color:var(--text-dark);font-weight:600;}
+.content-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--purple);margin-bottom:0.65rem;}
+.content-h{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;color:var(--text-dark);margin-bottom:1.25rem;line-height:1.2;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+
+/* Sub-project badge */
+.sub-badge{
+  display:inline-block;
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.3rem 0.85rem;border-radius:100px;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text-muted);margin-bottom:1rem;
+}
+.divider-rule{height:1px;background:var(--border);margin:0;}
+
+/* Role tags inline */
+.role-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
+.role-tag{
+  font-size:0.75rem;font-weight:500;
+  padding:0.3rem 0.85rem;border-radius:3px;
+  background:rgba(98,72,200,0.08);
+  color:var(--purple);
+  border:1px solid rgba(98,72,200,0.15);
+}
+
+/* Art board grid */
+.art-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;margin-top:1.5rem;
+}
+
+@media(max-width:900px){
+  .two-col,.art-grid{grid-template-columns:1fr;}
+  .proj-hero{min-height:auto;padding:8rem 1.5rem 3rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">I · S</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="index.html#about">About</a></li>
+    <li class="hide-sm"><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#work" class="active">Work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="YOUR_CV_PDF_LINK_HERE" class="nav-cv" target="_blank">Download CV</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Portfolio</a> &nbsp;/&nbsp; Mini Projects</div>
+    <div class="hero-tags">
+      <span class="tag tw">Game Design</span>
+      <span class="tag tw">2D Art</span>
+      <span class="tag tw">Unity</span>
+      <span class="tag tw">Academic</span>
+    </div>
+    <h1 class="proj-name">Mini Projects</h1>
+    <p class="proj-tagline">Short-form game projects from my XAMK studies. Small in scope, but each one taught me something specific.</p>
+  </div>
+</div>
+
+<!-- DRAGONBREW -->
+<section class="light-section">
+  <div class="container">
+    <div class="sub-badge">Project 01</div>
+    <div class="two-col">
+      <div>
+        <div class="content-label">Pair Project</div>
+        <div class="content-h">Dragonbrew</div>
+        <div class="content-col">
+          <p>Dragonbrew was our very first project during XAMK university studies. Made in Unity in collaboration with <strong>Michaela Heikkonen</strong>, the two of us split responsibility roughly evenly across design, programming, and 2D art.</p>
+          <p>As a first proper game project at university level, Dragonbrew was as much about learning to work as a pair on a shared codebase as it was about the game itself. Getting something playable and cohesive from a two-person team under time pressure taught me a lot about scoping, communication, and when to stop adding features.</p>
+        </div>
+        <div class="role-row">
+          <span class="role-tag">Game Design (50%)</span>
+          <span class="role-tag">Programming (50%)</span>
+          <span class="role-tag">2D Art (50%)</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="img-ph wide">
+          <div class="ph-icon">🎮</div>
+          <div class="ph-label">Gameplay Screenshot</div>
+          <div class="ph-sub">Add a screenshot or video embed</div>
+        </div>
+        <div class="img-ph tall">
+          <div class="ph-label">Art Board</div>
+          <div class="ph-sub">Add your Dragonbrew art board</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-rule"></div>
+
+<!-- LITTLE MOLE -->
+<section class="alt-section">
+  <div class="container">
+    <div class="sub-badge">Project 02</div>
+    <div class="two-col">
+      <div>
+        <div class="content-label">Solo Project</div>
+        <div class="content-h">The Little Mole Platformer</div>
+        <div class="content-col">
+          <p>A small solo project focused on practising 2D animation and platformer mechanics in Unity. Every piece of this one is mine: all the visuals, programming, and design.</p>
+          <p>The art was drawn in <strong>Aseprite</strong> in pixel art style, referencing the classic Czech cartoon character Krteček (The Little Mole) by Zdeněk Miler, first created in 1956. Working from a reference character with such a strong established visual identity meant staying faithful to the design while translating it into pixel art, which required its own set of decisions.</p>
+          <p>This project was primarily about getting comfortable with 2D animation systems in Unity and understanding how visual feedback and movement feel connect in a platformer.</p>
+        </div>
+        <div class="role-row">
+          <span class="role-tag">All Programming</span>
+          <span class="role-tag">All Art and Animation</span>
+          <span class="role-tag">Game Design</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="img-ph wide">
+          <div class="ph-icon">🎮</div>
+          <div class="ph-label">Gameplay Screenshot</div>
+          <div class="ph-sub">Add a screenshot or video embed</div>
+        </div>
+        <div class="img-ph tall">
+          <div class="ph-label">Art Board</div>
+          <div class="ph-sub">Add your Little Mole pixel art board</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proj-nav">
+  <div class="proj-nav-inner">
+    <a href="index.html#work" class="proj-nav-back">← Back to all projects</a>
+    <div class="proj-nav-links">
+      <a href="thumbnails.html" class="proj-nav-link">← Thumbnails</a>
+      <a href="3d-models.html" class="proj-nav-link">3D Models →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Inka Suokallio &nbsp;·&nbsp; Kristiinankaupunki, Finland &nbsp;·&nbsp; inka.suokallio@gmail.com</p>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+</script>
+</body>
+</html>

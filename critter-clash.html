@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Critter Clash | Inka Suokallio</title>
+<meta name="description" content="Educational card game designed for the Priodiversity LIFE Project, showing the full design process from brief to iteration.">
+<link rel="stylesheet" href="style.css">
+<style>
+.proj-hero{
+  min-height:70vh;background:var(--green-dark);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:10rem 2rem 4rem;position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.hero-glow-g{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  background:rgba(63,168,130,0.12);filter:blur(80px);
+  top:-80px;right:-60px;pointer-events:none;
+}
+.hero-inner{
+  max-width:1080px;margin:0 auto;width:100%;position:relative;z-index:1;
+}
+.breadcrumb{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-bottom:1.5rem;
+}
+.breadcrumb a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--gold-soft);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;}
+.proj-name{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.5rem,6vw,5rem);
+  font-weight:700;color:var(--text-light);
+  letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem;
+}
+.proj-tagline{
+  font-size:1rem;font-weight:300;color:var(--text-light-mid);
+  max-width:560px;line-height:1.75;margin-bottom:2rem;
+}
+.meta-strip{display:flex;flex-wrap:wrap;gap:2rem;}
+.meta-item{display:flex;flex-direction:column;gap:0.2rem;}
+.meta-label{
+  font-family:'Space Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.35);
+}
+.meta-value{font-size:0.88rem;font-weight:500;color:var(--text-light);}
+
+/* CONTENT */
+.light-section{background:var(--cream);padding:5rem 2rem;}
+.alt-section{background:var(--surface);padding:5rem 2rem;}
+.dark-section{background:var(--ink-mid);padding:5rem 2rem;position:relative;overflow:hidden;}
+.dark-section .grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(63,168,130,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(63,168,130,0.03) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.content-col p{
+  font-size:0.97rem;line-height:1.85;color:var(--text-mid);
+  margin-bottom:1.2rem;
+}
+.content-col p:last-child{margin-bottom:0;}
+.content-col p strong{color:var(--text-dark);font-weight:600;}
+.content-col.light-text p{color:var(--text-light-mid);}
+.content-col.light-text p strong{color:var(--text-light);}
+.content-label{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--green);
+  margin-bottom:0.65rem;
+}
+.content-label.gold{color:var(--gold);}
+.content-h{
+  font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;
+  color:var(--text-dark);margin-bottom:1.25rem;line-height:1.2;
+}
+.content-h.light{color:var(--text-light);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+
+/* Process steps */
+.process-steps{
+  display:flex;flex-direction:column;gap:0;margin-top:1rem;
+  border-left:2px solid rgba(42,112,87,0.2);padding-left:2rem;
+}
+.process-step{
+  position:relative;padding-bottom:2rem;
+}
+.process-step:last-child{padding-bottom:0;}
+.process-step::before{
+  content:'';position:absolute;left:-2.4rem;top:0.3rem;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--green);border:2px solid var(--cream);
+}
+.step-num{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--green);
+  margin-bottom:0.3rem;
+}
+.step-title{
+  font-size:0.92rem;font-weight:600;color:var(--text-dark);margin-bottom:0.4rem;
+}
+.step-desc{font-size:0.82rem;line-height:1.7;color:var(--text-mid);}
+
+/* Card categories */
+.card-types{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.1rem;margin-top:1rem;
+}
+.card-type{
+  background:#fff;border:1px solid var(--border);
+  border-radius:6px;padding:1.35rem;
+}
+.card-type-label{
+  font-family:'Space Mono',monospace;font-size:0.56rem;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--green);
+  margin-bottom:0.5rem;
+}
+.card-type-name{
+  font-family:'Cinzel',serif;font-size:1rem;font-weight:600;
+  color:var(--text-dark);margin-bottom:0.6rem;
+}
+.card-type p{font-size:0.8rem;line-height:1.65;color:var(--text-mid);margin:0;}
+
+/* Before/after iteration */
+.iteration-pair{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1.25rem;margin-top:1rem;
+}
+.iter-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;overflow:hidden;
+}
+.iter-header{
+  padding:0.6rem 1rem;font-family:'Space Mono',monospace;
+  font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;
+}
+.iter-header.before{background:rgba(200,151,62,0.1);color:#8A5E10;}
+.iter-header.after{background:rgba(42,112,87,0.1);color:#1E5E3E;}
+.iter-body{padding:0.85rem 1rem;}
+.iter-body p{font-size:0.78rem;line-height:1.65;color:var(--text-mid);margin:0;}
+
+/* Feedback quotes */
+.feedback-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.1rem;margin-top:1.5rem;
+}
+.feedback-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+  border-radius:6px;padding:1.35rem;
+}
+.feedback-quote{
+  font-size:0.88rem;font-style:italic;color:var(--text-light-mid);
+  line-height:1.7;margin-bottom:0.6rem;
+}
+.feedback-source{
+  font-family:'Space Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--green-soft);
+}
+
+/* Goals list */
+.goals-list{
+  display:flex;flex-direction:column;gap:0.6rem;margin-top:0.75rem;
+}
+.goal-item{
+  display:flex;align-items:flex-start;gap:0.85rem;
+  padding:0.85rem 1rem;
+  background:rgba(42,112,87,0.06);border:1px solid rgba(42,112,87,0.15);
+  border-radius:4px;
+}
+.goal-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--green);
+  flex-shrink:0;margin-top:0.35rem;
+}
+.goal-text{font-size:0.85rem;line-height:1.65;color:var(--text-mid);}
+.goal-text strong{color:var(--text-dark);font-weight:600;}
+
+@media(max-width:900px){
+  .two-col,.card-types,.iteration-pair,.feedback-grid{grid-template-columns:1fr;}
+  .proj-hero{min-height:50vh;padding:8rem 1.5rem 3rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">I · S</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="index.html#about">About</a></li>
+    <li class="hide-sm"><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#work" class="active">Work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="YOUR_CV_PDF_LINK_HERE" class="nav-cv" target="_blank">Download CV</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="proj-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-g"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Portfolio</a> &nbsp;/&nbsp; Critter Clash</div>
+    <div class="hero-tags">
+      <span class="tag tw">Game Design</span>
+      <span class="tag tw">Systems Design</span>
+      <span class="tag tw">Client Project</span>
+      <span class="tag tw">Educational</span>
+    </div>
+    <h1 class="proj-name">Critter Clash</h1>
+    <p class="proj-tagline">An educational card game designed for a real national client, taking Finnish biodiversity and turning it into something genuinely fun to play.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Year</span>
+        <span class="meta-value">2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Game Designer, Systems Designer</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Client</span>
+        <span class="meta-value">Priodiversity LIFE Project</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Context</span>
+        <span class="meta-value">XAMK Class Project</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT -->
+<section class="light-section">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="content-label">The Brief</div>
+        <div class="content-h">A real client, a real problem</div>
+        <div class="content-col">
+          <p>Critter Clash started as a class project at XAMK, but it came with a real client brief from the <strong>Priodiversity LIFE Project</strong>, a national initiative running from 2024 to 2031 that is working to halt biodiversity loss in Finland.</p>
+          <p>The client needed something that could reach different audiences who do not usually engage with conservation topics. The brief called for an educational tool that could work for local town officials and landowners, for new experts being trained, and for ordinary citizens including younger people. Three very different audiences, one game.</p>
+        </div>
+        <div class="goals-list">
+          <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Educating <strong>local officials and landowners</strong> about biodiversity decisions</div></div>
+          <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Training <strong>new experts</strong> in local biodiversity knowledge</div></div>
+          <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Teaching <strong>citizens and young people</strong> about their local nature</div></div>
+        </div>
+      </div>
+      <div class="img-ph wide" style="min-height:280px;">
+        <div class="ph-icon">📋</div>
+        <div class="ph-label">Brief / Ideation Board</div>
+        <div class="ph-sub">Add your first ideation image here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN PROCESS -->
+<section class="alt-section">
+  <div class="container">
+    <div class="content-label">Design Process</div>
+    <div class="content-h">From brief to playable prototype</div>
+    <div class="two-col" style="margin-top:2rem;">
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">Step 01</div>
+          <div class="step-title">Brief Analysis and Ideation</div>
+          <div class="step-desc">After going through the brief and its limiting factors, I mapped out what the game needed to do before thinking about what it should be. My two reference points were the Pokemon Trading Card Game and Gwent: The Witcher Card Game. PTCG gave me the accessible, easy-to-follow structure. Gwent gave me the mechanical depth I wanted underneath it.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Step 02</div>
+          <div class="step-title">Species Research</div>
+          <div class="step-desc">I selected two species from a provided list of Kymenlaakso habitats and did a focused research session on each. The goal was to find information I could actually use in the game mechanics, not just facts to display on a card.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Step 03</div>
+          <div class="step-title">Prototype Creation</div>
+          <div class="step-desc">I designed a first set of prototype cards across three categories: Species, Weather Effects, and Resource Effects. All visuals at this stage were placeholders. The priority was getting something on the table that could be tested.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Step 04</div>
+          <div class="step-title">Live Playtesting</div>
+          <div class="step-desc">I ran a hosted playtesting session with several players. The goal was not just collecting feedback but watching how people actually interacted with the game: where they got confused, what created moments of genuine engagement, and where the design was failing them.</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">Step 05</div>
+          <div class="step-title">Iteration and Rebalancing</div>
+          <div class="step-desc">Based on what I observed and heard, I revised card descriptions, adjusted numbers, redesigned weather card effects, and refined the tags system. The game is still in active development with more testing rounds planned.</div>
+        </div>
+      </div>
+      <div class="img-ph tall" style="min-height:400px;">
+        <div class="ph-icon">🃏</div>
+        <div class="ph-label">Prototype Cards</div>
+        <div class="ph-sub">Add a photo of your prototype session or card layouts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARD CATEGORIES -->
+<section class="light-section">
+  <div class="container">
+    <div class="content-label">Card System</div>
+    <div class="content-h">Three categories, one ecosystem</div>
+    <div class="card-types">
+      <div class="card-type">
+        <div class="card-type-label">Category 01</div>
+        <div class="card-type-name">Species Cards</div>
+        <p>The creatures of Kymenlaakso, reimagined as fantasy-inspired characters. They are played onto the field and have strengths and weaknesses relative to each other, which creates genuine incentive to think about deck composition.</p>
+      </div>
+      <div class="card-type">
+        <div class="card-type-label">Category 02</div>
+        <div class="card-type-name">Weather Effects</div>
+        <p>Cards that affect the entire field simultaneously. These started underpowered and were adjusted after playtesting to offer meaningful positives with slight negatives, making them worth including in a deck rather than always being passed over for stronger species.</p>
+      </div>
+      <div class="card-type">
+        <div class="card-type-label">Category 03</div>
+        <div class="card-type-name">Resource Effects</div>
+        <p>Cards that modify the rules and interactions between players. These affect game flow rather than field strength, adding a layer of strategic planning around when to play them and how they shift the dynamic of a round.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE MECHANICS -->
+<section class="alt-section">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="content-label">Core Mechanics</div>
+        <div class="content-h">Easy to learn, not easy to master</div>
+        <div class="content-col">
+          <p>Players build a 50-card deck and take turns playing species onto the field to create an ecosystem. Each species has <strong>tags and abilities that interact with other species</strong>, creating synergies and conflicts that reward players who pay attention to how species relate to each other in real ecology.</p>
+          <p>After both players take a turn, the total strength of all species on the field is calculated and converted into Stability points. The first player to reach 30 Stability wins. The education is built into the mechanics themselves; players absorb information about species relationships by playing the game, not by reading fact sheets.</p>
+        </div>
+      </div>
+      <div>
+        <div class="content-label">What makes it distinct</div>
+        <div class="content-h">Ecology as strategy, not lecture</div>
+        <div class="content-col">
+          <p>Most educational card games make the learning feel like a tax on the fun. Critter Clash tries to do the opposite: the ecological relationships are the strategy. Pollinators interact with flowering plants. Predators affect prey species. The theme of Kymenlaakso's ecosystems makes mechanics intuitive rather than arbitrary.</p>
+          <p>The result is a game that works at two levels. Players who know nothing about biodiversity can play and enjoy it. Players who know their Finnish species will recognise things and get something extra from the experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ITERATIONS -->
+<section class="dark-section">
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="content-label gold">Playtesting Results</div>
+    <div class="content-h light">What changed and why</div>
+    <div style="margin-top:2rem;display:flex;flex-direction:column;gap:2rem;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Card Iteration: Lullula Arborea (Woodlark)</div>
+        <div class="iteration-pair">
+          <div class="iter-card">
+            <div class="iter-header before">Before</div>
+            <div class="iter-body"><p>Base strength felt weak compared to most other species. The card's conditional ability required other birds to be present, but it was the only bird in the base deck, making the condition nearly impossible to trigger in practice.</p></div>
+          </div>
+          <div class="iter-card">
+            <div class="iter-header after">After</div>
+            <div class="iter-body"><p>Buffed base strength to make the card worth including even without triggering the condition. Added coloured tags for easier reading and comparison. The card now has a clear role in the deck rather than just being filler.</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">System Iteration: Weather Cards</div>
+        <div class="iteration-pair">
+          <div class="iter-card">
+            <div class="iter-header before">Before</div>
+            <div class="iter-body"><p>Playtesters consistently chose species cards with 3+ strength over weather cards. The weather effects were too minimal to justify the deck slot. Nobody was including them voluntarily.</p></div>
+          </div>
+          <div class="iter-card">
+            <div class="iter-header after">After</div>
+            <div class="iter-body"><p>Rebalanced to give weather cards larger positive effects with slight negatives. This creates a real decision point: weather cards now carry strategic value and risk, making them worth thinking about during deckbuilding.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedback-grid" style="margin-top:3rem;">
+      <div class="feedback-card">
+        <div class="feedback-quote">"Not boring, but actually pretty fun."</div>
+        <div class="feedback-source">Playtester feedback</div>
+      </div>
+      <div class="feedback-card">
+        <div class="feedback-quote">"Easy to learn, hard to master, which is good."</div>
+        <div class="feedback-source">Playtester feedback</div>
+      </div>
+      <div class="feedback-card">
+        <div class="feedback-quote">"A lot of potential to be a great game."</div>
+        <div class="feedback-source">Playtester feedback</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT NAV -->
+<div class="proj-nav">
+  <div class="proj-nav-inner">
+    <a href="index.html#work" class="proj-nav-back">← Back to all projects</a>
+    <div class="proj-nav-links">
+      <a href="dracora.html" class="proj-nav-link">← Dra'Cora</a>
+      <a href="thumbnails.html" class="proj-nav-link">Thumbnails →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Inka Suokallio &nbsp;·&nbsp; Kristiinankaupunki, Finland &nbsp;·&nbsp; inka.suokallio@gmail.com</p>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+</script>
+</body>
+</html>

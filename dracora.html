@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dra'Cora | Inka Suokallio</title>
+<meta name="description" content="A fully developed D&D campaign world built around player agency and narrative consequence.">
+<link rel="stylesheet" href="style.css">
+<style>
+/* PROJECT HERO */
+.proj-hero{
+  min-height:70vh;background:var(--ink);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:10rem 2rem 4rem;position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.045) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+.hero-glow-p{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:rgba(98,72,200,0.1);filter:blur(80px);
+  top:-100px;right:-100px;pointer-events:none;
+}
+.hero-glow-g{
+  position:absolute;width:400px;height:400px;border-radius:50%;
+  background:rgba(191,140,51,0.07);filter:blur(80px);
+  bottom:-60px;left:-60px;pointer-events:none;
+}
+.hero-inner{
+  max-width:1080px;margin:0 auto;width:100%;position:relative;z-index:1;
+}
+.breadcrumb{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-bottom:1.5rem;
+}
+.breadcrumb a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--gold-soft);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;}
+.proj-name{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.5rem,6vw,5rem);
+  font-weight:700;color:var(--text-light);
+  letter-spacing:0.04em;line-height:1.05;margin-bottom:0.75rem;
+}
+.proj-tagline{
+  font-size:1rem;font-weight:300;color:var(--text-light-mid);
+  max-width:560px;line-height:1.75;margin-bottom:2rem;
+}
+.meta-strip{display:flex;flex-wrap:wrap;gap:2rem;}
+.meta-item{display:flex;flex-direction:column;gap:0.2rem;}
+.meta-label{
+  font-family:'Space Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.25em;text-transform:uppercase;color:var(--text-muted);
+}
+.meta-value{font-size:0.88rem;font-weight:500;color:var(--text-light);}
+
+/* CONTENT SECTIONS */
+.light-section{background:var(--cream);padding:5rem 2rem;}
+.dark-section{background:var(--ink-mid);padding:5rem 2rem;position:relative;overflow:hidden;}
+.dark-section .grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(98,72,200,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(98,72,200,0.03) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.content-col{max-width:720px;}
+.content-col p{
+  font-size:0.97rem;line-height:1.85;color:var(--text-mid);
+  margin-bottom:1.2rem;
+}
+.content-col p:last-child{margin-bottom:0;}
+.content-col p strong{color:var(--text-dark);font-weight:600;}
+.content-col.light-text p{color:var(--text-light-mid);}
+.content-col.light-text p strong{color:var(--text-light);}
+
+/* Two-column layout */
+.two-col{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:start;
+}
+.two-col-equal{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;align-items:start;
+}
+
+/* Subheadings in content */
+.content-label{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.65rem;
+}
+.content-h{
+  font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;
+  color:var(--text-dark);margin-bottom:1.25rem;line-height:1.2;
+}
+.content-h.light{color:var(--text-light);}
+
+/* Systems grid */
+.systems-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.25rem;margin-top:0.5rem;
+}
+.system-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+  border-radius:6px;padding:1.5rem;
+}
+.system-card-label{
+  font-family:'Space Mono',monospace;font-size:0.56rem;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.6rem;
+}
+.system-card-title{
+  font-family:'Cinzel',serif;font-size:1rem;font-weight:600;
+  color:var(--text-light);margin-bottom:0.75rem;
+}
+.system-card p{
+  font-size:0.82rem;line-height:1.72;color:var(--text-light-mid);
+  margin:0;
+}
+
+/* Faction list */
+.faction-list{
+  display:flex;flex-direction:column;gap:0.85rem;margin-top:0.5rem;
+}
+.faction-item{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:1rem 1.25rem;
+  background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);
+  border-radius:4px;
+}
+.faction-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--purple-soft);
+  flex-shrink:0;margin-top:0.35rem;
+}
+.faction-name{
+  font-size:0.88rem;font-weight:600;color:var(--text-light);
+  margin-bottom:0.2rem;
+}
+.faction-desc{font-size:0.8rem;line-height:1.65;color:var(--text-light-mid);}
+
+/* Theme pills */
+.theme-pills{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.5rem;}
+.theme-pill{
+  font-size:0.82rem;font-weight:500;
+  padding:0.45rem 1rem;border-radius:100px;
+  background:rgba(98,72,200,0.1);color:#6248C8;
+  border:1px solid rgba(98,72,200,0.2);
+}
+
+/* Quote block */
+.pull-quote{
+  border-left:3px solid var(--purple);padding-left:1.5rem;
+  margin:2rem 0;
+}
+.pull-quote p{
+  font-size:1.05rem;font-style:italic;
+  color:var(--text-dark);line-height:1.75;margin:0 !important;
+}
+
+/* Campaigns CTA */
+.cta-block{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:2rem;text-align:center;
+  margin-top:1rem;
+}
+.cta-block p{
+  font-size:0.92rem;color:var(--text-mid);margin-bottom:1.25rem;
+}
+
+@media(max-width:900px){
+  .two-col,.two-col-equal,.systems-grid{grid-template-columns:1fr;}
+  .proj-hero{min-height:50vh;padding:8rem 1.5rem 3rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">I · S</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="index.html#about">About</a></li>
+    <li class="hide-sm"><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#work" class="active">Work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="YOUR_CV_PDF_LINK_HERE" class="nav-cv" target="_blank">Download CV</a></li>
+  </ul>
+</nav>
+
+<!-- PROJECT HERO -->
+<div class="proj-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-p"></div>
+  <div class="hero-glow-g"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Portfolio</a> &nbsp;/&nbsp; Dra'Cora</div>
+    <div class="hero-tags">
+      <span class="tag tw">Narrative Design</span>
+      <span class="tag tw">World-Building</span>
+      <span class="tag tw">D&amp;D</span>
+      <span class="tag tw">Solo Project</span>
+    </div>
+    <h1 class="proj-name">Dra'Cora</h1>
+    <p class="proj-tagline">A living D&amp;D campaign world built around consequence, player agency, and the slow collapse of a world that was never supposed to exist.</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Year</span>
+        <span class="meta-value">2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Narrative Designer, World Designer</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Status</span>
+        <span class="meta-value">Ongoing</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Tools</span>
+        <span class="meta-value">Inkarnate, Notion</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section class="light-section">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="content-label">The World</div>
+        <div class="content-h">A world built on the bones of a dead god</div>
+        <div class="content-col">
+          <p>Dra'Cora is a D&amp;D campaign world I have been designing and expanding as a personal narrative project. The world itself is built on an uncomfortable truth: the land, the sky, and everything living in it exists because a creator deity was killed, and the remnants of that being became the foundation for everything that came after.</p>
+          <p>Players step into this world without knowing its history. They are ordinary people drawn into something much larger than themselves, connected to an ancient seal they did not ask to be part of. As the campaign unfolds, the choices they make shape not just what happens to them, but what happens to the world around them.</p>
+          <p>The map is made in Inkarnate and is deliberately kept as a living document. Names change, regions shift, and the landscape itself responds to what players have done. Old settlements disappear. New ones appear. The map is never finished because the world is never finished.</p>
+        </div>
+      </div>
+      <div class="img-ph wide">
+        <div class="ph-icon">🗺</div>
+        <div class="ph-label">World Map</div>
+        <div class="ph-sub">Add your Inkarnate map here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE CONFLICT -->
+<section class="dark-section">
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="content-label">Core Conflict</div>
+    <div class="content-h light">The False Dragon King</div>
+    <div class="two-col">
+      <div class="content-col light-text">
+        <p>The central conflict of Dra'Cora revolves around <strong>the potential return of the False Dragon King</strong>, a being born from what was left of the slain goddess. After the world's creation, his essence was fractured and scattered across the land in the form of relics.</p>
+        <p>For a long time, those relics stayed dormant. But something has changed. They are surfacing again, and wherever they appear, factions move to claim them: to use them, destroy them, or study them. The problem is that every time a relic is activated, reality around it destabilises slightly. Use enough of them and the world begins to unravel.</p>
+        <p>Players become part of this without anyone asking them if they want to be. Their connection to the ancient seal means they are always in proximity to these events, always affected by them, and always making choices that ripple outward in ways they cannot fully predict.</p>
+      </div>
+      <div class="img-ph tall" style="min-height:300px;">
+        <div class="ph-icon">⚔️</div>
+        <div class="ph-label">Conflict Illustration</div>
+        <div class="ph-sub">Add a map detail or lore illustration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY SYSTEMS -->
+<section class="light-section">
+  <div class="container">
+    <div class="content-label">Narrative Mechanics</div>
+    <div class="content-h">Systems that shape the story</div>
+    <div class="systems-grid" style="margin-top:2rem;">
+      <div class="system-card" style="background:var(--surface);border:1px solid var(--border);">
+        <div class="system-card-label" style="color:var(--gold);">System 01</div>
+        <div class="system-card-title" style="color:var(--text-dark);">Relic System</div>
+        <p style="color:var(--text-mid);">Each relic carries a fragment of the False King's power. They grant significant abilities while quietly influencing the world around whoever holds them. Players must weigh the benefit of using a relic against what using it costs the world.</p>
+      </div>
+      <div class="system-card" style="background:var(--surface);border:1px solid var(--border);">
+        <div class="system-card-label" style="color:var(--gold);">System 02</div>
+        <div class="system-card-title" style="color:var(--text-dark);">Corruption and Transformation</div>
+        <p style="color:var(--text-mid);">Prolonged exposure to certain forces changes characters over time. These changes show up both in how the story develops and in the mechanics themselves: altered behaviour, shifting perception, and abilities that were not there before.</p>
+      </div>
+      <div class="system-card" style="background:var(--surface);border:1px solid var(--border);">
+        <div class="system-card-label" style="color:var(--gold);">System 03</div>
+        <div class="system-card-title" style="color:var(--text-dark);">Sha'vith</div>
+        <p style="color:var(--text-mid);">An external force that operates beyond anything the inhabitants of Dra'Cora can understand. It does not fight directly. It works through altered perception, identity distortion, and a slow erosion of who a person believes they are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACTIONS -->
+<section class="dark-section">
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="content-label">Factions and Forces</div>
+    <div class="content-h light">No one agrees on what should be done</div>
+    <div class="two-col" style="margin-top:2rem;">
+      <div class="faction-list">
+        <div class="faction-item">
+          <div class="faction-dot"></div>
+          <div>
+            <div class="faction-name">Revivalist Cults</div>
+            <div class="faction-desc">Groups working to bring the False Dragon King back. They see his return as the restoration of something that was taken from the world, not as a threat to it.</div>
+          </div>
+        </div>
+        <div class="faction-item">
+          <div class="faction-dot" style="background:var(--green-soft);"></div>
+          <div>
+            <div class="faction-name">Scholarly Orders</div>
+            <div class="faction-desc">Researchers trying to understand relic power before someone else uses it catastrophically. They believe knowledge and control are the only way forward.</div>
+          </div>
+        </div>
+      </div>
+      <div class="faction-list">
+        <div class="faction-item">
+          <div class="faction-dot" style="background:var(--gold-soft);"></div>
+          <div>
+            <div class="faction-name">Political Powers</div>
+            <div class="faction-desc">Institutions that see the chaos caused by surfacing relics as an opportunity. They do not care about the False King either way, only about consolidating influence while everyone else is distracted.</div>
+          </div>
+        </div>
+        <div class="faction-item">
+          <div class="faction-dot" style="background:rgba(255,255,255,0.3);"></div>
+          <div>
+            <div class="faction-name">Unknown External Entities</div>
+            <div class="faction-desc">Forces that operate at the edges of comprehension. Players may encounter their influence long before they understand what is behind it, or whether it even has a goal they could recognise.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="light-section">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="content-label">Tone and Themes</div>
+        <div class="content-h">High fantasy with a psychological edge</div>
+        <div class="content-col">
+          <p>Dra'Cora blends high fantasy setting with psychological tension. Victories in this world are rarely clean. Consequences are rarely immediate. The story does not reward players for doing the heroic thing; it asks them to figure out what the heroic thing even is when there are no clear villains, just competing beliefs.</p>
+        </div>
+        <div class="theme-pills" style="margin-top:1.5rem;">
+          <span class="theme-pill">Corruption of identity</span>
+          <span class="theme-pill">False divinity</span>
+          <span class="theme-pill">The cost of knowledge</span>
+          <span class="theme-pill">Inevitability vs resistance</span>
+          <span class="theme-pill">Power as tool and threat</span>
+          <span class="theme-pill">Misplaced faith</span>
+        </div>
+      </div>
+      <div>
+        <div class="content-label">Design Philosophy</div>
+        <div class="content-h">Built to support many campaigns</div>
+        <div class="content-col">
+          <p>The systems in Dra'Cora are designed to carry multiple narrative experiences. The core mechanics around relic influence and corruption stay consistent across campaigns, but how they express themselves changes depending on where in the world the story takes place, which factions are involved, and what players have already done.</p>
+          <p>This means each campaign can feel like a distinct story while still taking place in the same living world. Player decisions from one campaign can leave marks that the next group discovers without anyone explaining what happened.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPAIGNS CTA -->
+<section class="light-section" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-block">
+      <div class="content-label" style="text-align:center;">What comes next</div>
+      <p>Dra'Cora is the foundation for a series of campaigns, each exploring different regions, conflicts, and player stories within the same world.</p>
+      <a href="#" class="btn-outline-dark">Explore Campaigns (Coming Soon)</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT NAV -->
+<div class="proj-nav">
+  <div class="proj-nav-inner">
+    <a href="index.html#work" class="proj-nav-back">← Back to all projects</a>
+    <div class="proj-nav-links">
+      <a href="critter-clash.html" class="proj-nav-link">Next: Critter Clash →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Inka Suokallio &nbsp;·&nbsp; Kristiinankaupunki, Finland &nbsp;·&nbsp; inka.suokallio@gmail.com</p>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+</script>
+</body>
+</html>
